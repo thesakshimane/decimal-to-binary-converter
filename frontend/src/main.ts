@@ -1,24 +1,24 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.css";
+import { decimalToBinary } from "./converter";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const app = document.querySelector<HTMLDivElement>("#app");
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+if (app) {
+  app.innerHTML = `
+    <h1>Decimal to Binary Converter</h1>
+    <input type="number" id="decimalInput" placeholder="Enter decimal number" />
+    <button id="convertBtn">Convert</button>
+    <p>Binary: <span id="binaryOutput">-</span></p>
+  `;
+
+  const decimalInput = document.querySelector<HTMLInputElement>("#decimalInput");
+  const convertBtn = document.querySelector<HTMLButtonElement>("#convertBtn");
+  const binaryOutput = document.querySelector<HTMLSpanElement>("#binaryOutput");
+
+  convertBtn?.addEventListener("click", () => {
+    if (decimalInput && binaryOutput) {
+      const decimal = parseInt(decimalInput.value, 10);
+      binaryOutput.textContent = decimalToBinary(decimal);
+    }
+  });
+}
